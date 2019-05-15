@@ -1,0 +1,37 @@
+extends layout_admin
+
+block content
+    .main.container
+        .row
+            div
+                table.table.table-striped
+                    thead.thead-dark
+                        tr
+                            th
+                                | #
+                            th
+                                | Nome Livro
+                            th
+                                | Nome Usuário
+                            th
+                                | Nota
+                            th
+                                | Estado Conservação
+                            th
+                                | Observações
+
+                    tbody
+                        if messages.msg_error
+                            | !{messages.msg_error}
+                        else
+                            - var values = {4:'Ótimo',3:'Bom',1:'Ruim',2:'Regular'};
+                            for row in avaliacoes
+                                tr
+                                    td #{row.id}
+                                    td #{row.nome_livro}
+                                    td #{row.nome_usuario}
+                                    td #{row.nota}
+                                    td #{values[row.estado_conservacao]}
+                                    td #{row.observacoes}
+
+

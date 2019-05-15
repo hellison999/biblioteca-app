@@ -1,0 +1,16 @@
+extends layout
+
+block content
+  .main.container
+    .row
+      .col-md-6.col-md-offset-3
+        h1.display-4.m-b-2 Sistema de Avaliação de Livros
+        - if(messages.info)
+          .alert.alert-danger.alert-dismissable
+            span= messages.info
+        // register form
+        form(method='POST' action='/evaluate')
+          div.form-group
+            label(for='name') Usuário:
+            input#name.form-control(type='text', placeholder='Nome do usuário' name='name')
+          button.btn.btn-primary(type='submit') Continuar

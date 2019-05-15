@@ -1,0 +1,61 @@
+extends layout_admin
+
+block content
+    .main.container
+        .row
+            if messages.info
+                .alert.alert-success.alert-dismissable
+                    span= messages.info
+            if messages.error
+                .alert.alert-danger.alert-dismissable
+                    span= messages.error
+            div
+                a.btn.btn-primary(href='#modal', data-toggle='modal') Novo Livro
+
+            div
+                table.table.table-striped
+                    thead.thead-dark
+                        tr
+                            th
+                                | #
+                            th
+                                | Nome
+                            th
+                                | Total Avaliações
+                            th
+                                | Nota Média
+                            th
+                                | Percentual Estado Ótimo
+                            th
+                                | Percentual Estado Bom
+                            th
+                                | Percentual Estado Regular
+                            th
+                                | Percentual Estado Ruim
+                    tbody
+                        if messages.msg_error
+                            | !{messages.msg_error}
+                        else
+                            for row in livros
+                                tr
+                                    td #{row.id}
+                                    td #{row.nome}
+                                    td #{row.total_avaliacao}
+                                    td #{row.nota_media}%
+                                    td #{row.otimo}%
+                                    td #{row.bom}%
+                                    td #{row.regular}%
+                                    td #{row.ruim}%
+
+
+            div#modal.modal.fade
+                div.modal-dialog
+                    div.modal-content
+                        div.modal-header
+                            h3 Cadastre um novo livro
+                        div.modal-body
+                            form(method='POST' action='/admin/books/add')
+                                div.form-group
+                                    label(for='name') Nome:
+                                    input#name.form-control(type='text', placeholder='Nome do livro' name='nome')
+                                button.btn.btn-primary(type='submit') Salvar

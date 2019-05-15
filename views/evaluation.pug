@@ -1,0 +1,40 @@
+extends layout
+
+block content
+    .main.container
+        .row
+            .col-md-6.col-md-offset-3
+                h1.display-4.m-b-2 Avalie seu livro
+
+                // register form
+                form(method='POST' action='/saveEvaluation')
+                    div.form-group
+                        label(for='livro') Livro:
+                        select#livro.form-control(name='id_livro')
+                            for row in livros
+                                option(value=row.id) #{row.nome}
+                    div.form-group
+                        label(for='estadoConservacao') Estado de Conservação:
+                        select#estadoConservacao.form-control(name='estado_conservacao')
+                            each est, i in {4:'Ótimo',3:'Bom',1:'Ruim',2:'Regular'}
+                                option(value=i) #{est}
+                    div.form-group
+                        label(for='nota') Nota:
+                        select#nota.form-control(name='nota')
+                            each i in [1,2,3,4,5,6,7,8,9,10]
+                                option(value=i) #{i}
+                    div.form-group
+                        label(for='observacoes') Observações:
+                        textarea#observacoes.form-control(name='observacoes', maxlength=255)
+                    button.btn.btn-primary(type='submit') Avaliar
+                div#confirm.modal.fade
+                    div.modal-dialog
+                        div.modal-content
+                            div.modal-header
+                                h3 Deseja avaliar outro livro?
+                            div.modal-body
+                                a.btn.btn-primary(href='/evaluation') Sim
+                                a.btn.btn-danger(href='/') Não
+                if messages.info
+                    script.
+                        $("#confirm").modal('show');
