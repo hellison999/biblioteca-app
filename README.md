@@ -1,4 +1,4 @@
-# ALTU Serverless
+# Biblioteca App
 
 ## Instalação
 
